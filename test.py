@@ -2,7 +2,7 @@ import numpy as np
 from numpy.linalg import svd
 
 from func import remove_small_values, sketched_svd, generate_matrix_with_singular_values, timer, title_print
- 
+
 def direct_svd(A):
     """
     Perform SVD on matrix A and return U, Sigma, V_T.
