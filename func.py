@@ -28,11 +28,25 @@ def sketched_svd(X, m):
     U_Y, Sigma_Y, V_Y_T = svd(Y, full_matrices=True)
     return Sigma_Y, V_Y_T.T  # Return Σ_Y and V_Y
 
-def generate_matrix_with_singular_values(m, n, rank, sigma = None):
+def generate_matrix_with_singular_values(m, n, rank, ranging = None, sigma = None):
+    """
+    Generate a random matrix with specified singular values.
+    :param m: Number of rows in the matrix.
+    :param n: Number of columns in the matrix.
+    :param rank: Rank of the matrix.
+    :param ranging: Range for generating singular values. If None, random singular values are generated.
+    :param sigma: List of singular values. If None, random singular values are generated.
+    :return: A, Sigma, U, V.
+    """
+
     # 隨機生成奇異值 sigma
     if sigma is None:
-        low, high = 1, 500  # Define the range for singular values
-        a = list(np.random.uniform(low, high, rank))
+        # Define the range for singular values
+        if ranging is not None:
+            low, upper = 1, 500
+        else:
+            low, upper = ranging
+        a = list(np.random.uniform(low, upper, rank))
         a += [0]*(min(m, n) - rank)
         sigma = np.sort(a)[::-1]
     else:
