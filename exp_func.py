@@ -26,7 +26,29 @@ def error_avg(A, m, k, Sigma, V1):
     print(f"{m} {dt:.4f} {avg:.4f} {V_diff:.4f}")
     return dt, avg, V_diff
 
-def test_compression_ratio(N = 5000, n = 20, k_arr = [5, 10, 15, 20]):
+# def plot_graphs(results, N, n):
+#     num = len(results)
+#     for i in range(num):
+#         k, X, Y, T, Vs = results[i]
+#         plt.figure(i)
+#         plt.plot(X, Y, label=f"k = {k}")
+
+def plot_graphs_together(results, graphs):
+    num = len(graphs)
+    fig, axs = plt.subplots(1, num)
+    for item in results:
+        k = item[0]
+        data = item[1:]
+        for idx, (i, j, title, xlabel, ylabel) in enumerate(graphs):
+            ax = axs[idx]
+            ax.plot(data[i], data[j], label=f"k = {k}")
+
+            ax.set_title(title)
+            ax.set_xlabel(xlabel)
+            ax.set_ylabel(ylabel)
+            ax.legend()
+
+def test_compression_ratio(N = 1000, n = 800, k_arr = [5, 10, 50, 100]):
     """
     Test the compression ratio of the randomized SVD.
 
@@ -35,14 +57,13 @@ def test_compression_ratio(N = 5000, n = 20, k_arr = [5, 10, 15, 20]):
     :param k: Rank of the matrix.
     :return: None
     """
-    fig, (ax1, ax2) = plt.subplots(1, 2)
 
     import concurrent.futures # enhance the speed
 
     def process_k(k):
         A, Sigma, U, V = generate_matrix_with_singular_values(N, n, k)
         X, Y, T, Vs = [], [], [], []
-        for m in range(k, 800, 10):
+        for m in range(k, n // 2, 5):
             dt, avg, V_diff = error_avg(A, m, k, Sigma, V)
             X.append(m)
             T.append(dt)
@@ -59,26 +80,17 @@ def test_compression_ratio(N = 5000, n = 20, k_arr = [5, 10, 15, 20]):
     # Keep the original k_arr order
     results.sort(key=lambda x: k_arr.index(x[0]))
 
-    for k, X, Y, T, Vs in results:
-        ax1.plot(X, Y, label=f"k = {k}")
-        ax2.plot(X, Vs, label=f"k = {k}")
-        # ax3.plot(X, T, label=f"k = {k}")
-
-    ax1.set_title(f"Error v.s. Compressed Row Number (N = {N}, n = {n})")
-    ax1.set_xlabel("m")
-    ax1.set_ylabel("Average of Absolute Error")
-    ax1.legend()
+    plot_graphs_together(results, graphs = (
+        (0, 1, 
+         f"Error v.s. Compressed Row Number (N = {N}, n = {n})", 
+         "m", 
+         "Average of Absolute Error"), 
+        (0, 3, 
+         f"V difference v.s. Compressed Row Number (N = {N}, n = {n})", 
+         "m", 
+         "V difference (norm(V-V'))")
+    ))
     
-    ax2.set_title(f"V difference v.s. Compressed Row Number (N = {N}, n = {n})")
-    ax2.set_xlabel("m")
-    ax2.set_ylabel("V difference (norm(V-V'))")
-    ax2.legend()
-
-    # ax3.set_title("Time by Compressed Row Number (N = 1000, n = 800)")
-    # ax3.set_xlabel("m")
-    # ax3.set_ylabel("Time (s)")
-    # ax3.legend()
-
     plt.tight_layout()
     plt.show()
 
