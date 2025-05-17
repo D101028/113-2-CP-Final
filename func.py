@@ -8,6 +8,7 @@ def remove_small_values(matrix, threshold=1e-8):
 def generate_JL_matrix(m, n):
     """
     Generate a Johnson-Lindenstrauss (JL) matrix.
+    
     :param m: Number of rows in the JL matrix.
     :param n: Number of columns in the JL matrix.
     :return: A random JL matrix of shape (m, n).
@@ -18,6 +19,7 @@ def generate_JL_matrix(m, n):
 def sketched_svd(X, m):
     """
     Perform a randomized SVD using a JL matrix.
+
     :param X: Input matrix of shape (N, n).
     :param m: Number of rows in the JL matrix.
     :return: Singular values and right singular vectors of the compressed matrix.
@@ -28,9 +30,10 @@ def sketched_svd(X, m):
     U_Y, Sigma_Y, V_Y_T = svd(Y, full_matrices=True)
     return Sigma_Y, V_Y_T.T  # Return Σ_Y and V_Y
 
-def generate_matrix_with_singular_values(m, n, rank, ranging = None, sigma = None):
+def generate_matrix_with_singular_values(m, n, rank = None, ranging = None, sigma = None):
     """
     Generate a random matrix with specified singular values.
+
     :param m: Number of rows in the matrix.
     :param n: Number of columns in the matrix.
     :param rank: Rank of the matrix.
@@ -69,6 +72,7 @@ def generate_matrix_with_singular_values(m, n, rank, ranging = None, sigma = Non
 def timer(func, *args, **kwargs):
     """
     Timer decorator to measure the execution time of a function.
+
     :param func: Function to be timed.
     :param args: Positional arguments for the function.
     :param kwargs: Keyword arguments for the function.
@@ -82,6 +86,7 @@ def timer(func, *args, **kwargs):
 def title_print(title):
     """
     Print a title with a separator line.
+
     :param title: Title to be printed.
     """
     print("\n" + "=" * 40)
