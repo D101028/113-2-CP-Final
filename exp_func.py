@@ -26,12 +26,18 @@ def error_avg(A, m, k, Sigma, V1):
     print(f"{m} {dt:.4f} {avg:.4f} {V_diff:.4f}")
     return dt, avg, V_diff
 
-# def plot_graphs(results, N, n):
-#     num = len(results)
-#     for i in range(num):
-#         k, X, Y, T, Vs = results[i]
-#         plt.figure(i)
-#         plt.plot(X, Y, label=f"k = {k}")
+def plot_graphs(results, graphs):
+    for item in results:
+        k = item[0]
+        data = item[1:]
+        for idx, (i, j, title, xlabel, ylabel) in enumerate(graphs):
+            plt.figure(idx)
+            plt.plot(data[i], data[j], label=f"k = {k}")
+
+            plt.title(title)
+            plt.xlabel(xlabel)
+            plt.ylabel(ylabel)
+            plt.legend()
 
 def plot_graphs_together(results, graphs):
     num = len(graphs)
@@ -80,7 +86,7 @@ def test_compression_ratio(N = 1000, n = 800, k_arr = [5, 10, 50, 100]):
     # Keep the original k_arr order
     results.sort(key=lambda x: k_arr.index(x[0]))
 
-    plot_graphs_together(results, graphs = (
+    plot_graphs(results, graphs = (
         (0, 1, 
          f"Error v.s. Compressed Row Number (N = {N}, n = {n})", 
          "m", 
