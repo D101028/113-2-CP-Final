@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 from func import generate_matrix_with_singular_values, sketched_svd
 
-def error_avg(A, m, k, S1, V1):
+def error_avg(A, m, k, Sigma, V1):
     """
     :return: m, dt, avg
     """
@@ -14,13 +14,19 @@ def error_avg(A, m, k, S1, V1):
     sigma, V = sketched_svd(A, m)
     dt = time.time() - t
     S2 = sigma[:k]
-    avg = np.average(np.abs((S1 - S2) / S2))
+    avg = np.average(np.abs((Sigma[:k] - S2) / S2))
     # Calculus the difference between V and V1
-    V_diff = min(np.linalg.norm(V1[:, 0] - V[:, 0]), np.linalg.norm(V1[:, 0] + V[:, 0]))
+    # Vectors in V 可能會差一個負號
+    V_diff = np.average([
+        min((
+                np.linalg.norm(V1[:, i] - V[:, i]), 
+                np.linalg.norm(V1[:, i] + V[:, i])
+            )) for i in range(k)
+    ])
     print(f"{m} {dt:.4f} {avg:.4f} {V_diff:.4f}")
     return m, dt, avg, V_diff
 
-def test_compression_ratio(N = 1000, n = 800, k_arr = [10, 20, 30, 50, 100]):
+def test_compression_ratio(N = 1000, n = 800, k_arr = [5, 10, 20, 40, 100]):
     """
     Test the compression ratio of the randomized SVD.
 
@@ -35,10 +41,9 @@ def test_compression_ratio(N = 1000, n = 800, k_arr = [10, 20, 30, 50, 100]):
 
     def process_k(k):
         A, Sigma, U, V = generate_matrix_with_singular_values(N, n, k)
-        S1 = Sigma[:k]
         X, Y, T, Vs = [], [], [], []
         for m in range(k, n // 2, 10):
-            m_val, dt, avg, V_diff = error_avg(A, m, k, S1, V)
+            m_val, dt, avg, V_diff = error_avg(A, m, k, Sigma, V)
             X.append(m_val)
             T.append(dt)
             Y.append(avg)
