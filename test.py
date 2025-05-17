@@ -7,7 +7,7 @@ def direct_svd(A):
     """
     Perform SVD on matrix A and return U, Sigma, V_T.
     :param A: Input matrix of shape (N, n).
-    :return: U, Sigma, V_T from the SVD of A.
+    :return: Sigma, V_T from the SVD of A.
     """
     U, Sigma, V_T = svd(A, full_matrices=True)
     U, Sigma, V_T = map(remove_small_values, (U, Sigma, V_T))
@@ -20,7 +20,7 @@ def random_svd(A, m):
     """
     Perform SVD on matrix A and return U, Sigma, V_T.
     :param A: Input matrix of shape (N, n).
-    :return: U, Sigma, V_T from the SVD of A.
+    :return: Sigma, V_T from the SVD of A.
     """
     Sigma, V_T = sketched_svd(A, m)
     Sigma, V_T = map(remove_small_values, (Sigma, V_T))
@@ -31,15 +31,15 @@ if __name__ == "__main__":
     # Parameters
     N = 1000        # Matrix size
     n = 800         # Matrix size
-    k = 500          # Rank
-    m = 200         # Compression dimension
+    k = 10          # Rank
+    m = 100         # Compression dimension
 
     if m > N:
         print("m must be less than N")
         exit(1)
 
     # Generate random matrix
-    A, sigma, U, V = generate_matrix_with_singular_values(N, n, k, (5000, 10000))
+    A, sigma, U, V = generate_matrix_with_singular_values(N, n, k, (500, 1000))
 
     title_print("Origin Singular Values:")
     print(sigma[:100])
@@ -47,14 +47,16 @@ if __name__ == "__main__":
     # Direct SVD
     # title_print("Direct SVD:")
     # t1, result1 = timer(direct_svd, A)
-    # print("Direct SVD time:", t1)
+    # print("Direct SVD time:", 
+    #       "\n--------------------------------\n", 
+    #       t1)
 
     # Randomized SVD
     title_print("Randomized SVD:")
     t2, result2 = timer(random_svd, A, m)
-    print("Randomized SVD time:", 
-          "\n--------------------------------\n", 
-          t2)
+    # print("Randomized SVD time:", 
+    #       "\n--------------------------------\n", 
+    #       t2)
 
     # S1 = result1[0][:100]
     S2 = result2[0][:100]

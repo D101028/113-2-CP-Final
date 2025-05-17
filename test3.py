@@ -1,11 +1,4 @@
-from numpy.linalg import svd
+from exp_func import test_compression_ratio
 
-from func import generate_matrix_with_singular_values
-
-N = 5000        # Matrix size
-n = 4800         # Matrix size
-k = 500          # Rank
-
-A, Sigma, U, V = generate_matrix_with_singular_values(N, n, k)
-
+test_compression_ratio()
 
