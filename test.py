@@ -45,17 +45,17 @@ if __name__ == "__main__":
     print(sigma[:100])
 
     # Direct SVD
-    # title_print("Direct SVD:")
-    # t1, result1 = timer(direct_svd, A)
-    # print("Direct SVD time:", 
-    #       "\n--------------------------------\n", 
-    #       t1)
+    title_print("Direct SVD:")
+    t1, result1 = timer(direct_svd, A)
+    print("\n--------------------------------\n", 
+          "Direct SVD time:", 
+          t1)
 
     # Randomized SVD
     title_print("Randomized SVD:")
     t2, result2 = timer(random_svd, A, m)
-    # print("Randomized SVD time:", 
-    #       "\n--------------------------------\n", 
+    # print("\n--------------------------------\n", 
+    #       "Randomized SVD time:", 
     #       t2)
 
     # S1 = result1[0][:100]
