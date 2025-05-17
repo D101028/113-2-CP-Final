@@ -8,7 +8,7 @@ from func import generate_matrix_with_singular_values, sketched_svd
 
 def error_avg(A, m, k, Sigma, V1):
     """
-    :return: m, dt, avg, V_diff
+    :return: dt, avg, V_diff
     """
     t = time.time()
     sigma, V = sketched_svd(A, m)
@@ -24,9 +24,9 @@ def error_avg(A, m, k, Sigma, V1):
             )) for i in range(k)
     ])
     print(f"{m} {dt:.4f} {avg:.4f} {V_diff:.4f}")
-    return m, dt, avg, V_diff
+    return dt, avg, V_diff
 
-def test_compression_ratio(N = 1000, n = 800, k_arr = [5, 10, 20, 40, 100]):
+def test_compression_ratio(N = 5000, n = 20, k_arr = [5, 10, 15, 20]):
     """
     Test the compression ratio of the randomized SVD.
 
@@ -42,9 +42,9 @@ def test_compression_ratio(N = 1000, n = 800, k_arr = [5, 10, 20, 40, 100]):
     def process_k(k):
         A, Sigma, U, V = generate_matrix_with_singular_values(N, n, k)
         X, Y, T, Vs = [], [], [], []
-        for m in range(k, n // 2, 10):
-            m_val, dt, avg, V_diff = error_avg(A, m, k, Sigma, V)
-            X.append(m_val)
+        for m in range(k, 800, 10):
+            dt, avg, V_diff = error_avg(A, m, k, Sigma, V)
+            X.append(m)
             T.append(dt)
             Y.append(avg)
             Vs.append(V_diff)
@@ -64,12 +64,12 @@ def test_compression_ratio(N = 1000, n = 800, k_arr = [5, 10, 20, 40, 100]):
         ax2.plot(X, Vs, label=f"k = {k}")
         # ax3.plot(X, T, label=f"k = {k}")
 
-    ax1.set_title("Error by Compressed Row Number (N = 1000, n = 800)")
+    ax1.set_title(f"Error v.s. Compressed Row Number (N = {N}, n = {n})")
     ax1.set_xlabel("m")
     ax1.set_ylabel("Average of Absolute Error")
     ax1.legend()
     
-    ax2.set_title("V difference by Compressed Row Number (N = 1000, n = 800)")
+    ax2.set_title(f"V difference v.s. Compressed Row Number (N = {N}, n = {n})")
     ax2.set_xlabel("m")
     ax2.set_ylabel("V difference (norm(V-V'))")
     ax2.legend()
