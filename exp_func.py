@@ -8,7 +8,7 @@ from func import generate_matrix_with_singular_values, sketched_svd
 
 def error_avg(A, m, k, Sigma, V1):
     """
-    :return: m, dt, avg
+    :return: m, dt, avg, V_diff
     """
     t = time.time()
     sigma, V = sketched_svd(A, m)
