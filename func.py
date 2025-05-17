@@ -42,7 +42,7 @@ def generate_matrix_with_singular_values(m, n, rank, ranging = None, sigma = Non
     # 隨機生成奇異值 sigma
     if sigma is None:
         # Define the range for singular values
-        if ranging is not None:
+        if ranging is None:
             low, upper = 1, 500
         else:
             low, upper = ranging

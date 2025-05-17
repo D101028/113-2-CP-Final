@@ -29,21 +29,17 @@ def random_svd(A, m):
 
 if __name__ == "__main__":
     # Parameters
-    N = 5000        # Matrix size
-    n = 4800         # Matrix size
+    N = 1000        # Matrix size
+    n = 800         # Matrix size
     k = 500          # Rank
-    # epsilon = 0.9
-    # delta = 0.001
-    # m = int((rank * np.log(42/epsilon) + np.log(2/delta))/(epsilon**2/2))  # Compression dimension (must be > k)
-    # print("m:", m)
-    m = 500         # Compression dimension
+    m = 200         # Compression dimension
 
     if m > N:
         print("m must be less than N")
         exit(1)
 
     # Generate random matrix
-    A, sigma, U, V = generate_matrix_with_singular_values(N, n, k)
+    A, sigma, U, V = generate_matrix_with_singular_values(N, n, k, (5000, 10000))
 
     title_print("Origin Singular Values:")
     print(sigma[:100])
@@ -56,7 +52,9 @@ if __name__ == "__main__":
     # Randomized SVD
     title_print("Randomized SVD:")
     t2, result2 = timer(random_svd, A, m)
-    print("Randomized SVD time:", t2)
+    print("Randomized SVD time:", 
+          "\n--------------------------------\n", 
+          t2)
 
     # S1 = result1[0][:100]
     S2 = result2[0][:100]
