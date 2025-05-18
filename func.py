@@ -43,7 +43,7 @@ def generate_matrix_with_singular_values(m, n, rank = None, ranging = None, sigm
     :return: A, Sigma, U, V.
     """
 
-    # 隨機生成奇異值 sigma
+    # Randomly Generate sigular values sigma 
     if sigma is None:
         # Define the range for singular values
         if ranging is None:
@@ -56,16 +56,16 @@ def generate_matrix_with_singular_values(m, n, rank = None, ranging = None, sigm
     else:
         sigma = np.sort(sigma)[::-1]
 
-    # 構造對角矩陣 Sigma
+    # Construct the diagonal matrix Sigma
     Sigma = np.zeros((m, n))
     for i in range(len(sigma)):
         Sigma[i, i] = sigma[i]
 
-    # 隨機生成正交矩陣 U 和 V
+    # Randomly generate orthogonal matrix U, V
     U, _ = np.linalg.qr(np.random.randn(m, m))
     V, _ = np.linalg.qr(np.random.randn(n, n))
 
-    # 計算 A = U Σ V^T
+    # Compute A = U Σ V^T
     A = U @ Sigma @ V.T
 
     return A, sigma, U, V
