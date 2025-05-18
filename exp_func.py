@@ -8,6 +8,10 @@ from func import generate_matrix_with_singular_values, sketched_svd
 
 def error_avg(A, m, k, Sigma, V1):
     """
+    :param A: Input matrix
+    :param m: Compressed rank
+    :param Sigma: Original sigular values
+    :param V1: Original right sigular vectors
     :return: dt, avg, V_diff
     """
     t = time.time()
@@ -15,7 +19,7 @@ def error_avg(A, m, k, Sigma, V1):
     dt = time.time() - t
     S2 = sigma[:k]
     avg = np.average(np.abs((Sigma[:k] - S2) / S2))
-    # Calculus the difference between V and V1
+    # Calculate the difference between V and V1
     # Vectors in V 可能會差一個負號
     V_diff = np.average([
         min((
@@ -54,13 +58,15 @@ def plot_graphs_together(results, graphs):
             ax.set_ylabel(ylabel)
             ax.legend()
 
-def test_compression_ratio(N = 1000, n = 800, k_arr = [5, 10, 50, 100]):
+def test_compression_ratio(N = 1000, n = 100, k_arr = [5, 10, 50, 100], max_m = 500, m_interval = 5):
     """
     Test the compression ratio of the randomized SVD.
 
     :param N: Number of rows in the matrix.
     :param n: Number of columns in the matrix.
     :param k: Rank of the matrix.
+    :param max_m: Max of testing value of m
+    :param m_interval: Interval of each testing m
     :return: None
     """
 
@@ -69,7 +75,7 @@ def test_compression_ratio(N = 1000, n = 800, k_arr = [5, 10, 50, 100]):
     def process_k(k):
         A, Sigma, U, V = generate_matrix_with_singular_values(N, n, k)
         X, Y, T, Vs = [], [], [], []
-        for m in range(k, n // 2, 5):
+        for m in range(k, max_m + 1, m_interval):
             dt, avg, V_diff = error_avg(A, m, k, Sigma, V)
             X.append(m)
             T.append(dt)
@@ -86,6 +92,7 @@ def test_compression_ratio(N = 1000, n = 800, k_arr = [5, 10, 50, 100]):
     # Keep the original k_arr order
     results.sort(key=lambda x: k_arr.index(x[0]))
 
+    # graphs: (i, j, title, xlabel, ylabel)
     plot_graphs(results, graphs = (
         (0, 1, 
          f"Error v.s. Compressed Row Number (N = {N}, n = {n})", 
