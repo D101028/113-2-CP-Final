@@ -47,10 +47,10 @@ def generate_matrix_with_singular_values(m, n, rank = None, ranging = None, sigm
     if sigma is None:
         # Define the range for singular values
         if ranging is None:
-            low, upper = 1, 500
+            lower, upper = 1, 500
         else:
-            low, upper = ranging
-        a = list(np.random.uniform(low, upper, rank))
+            lower, upper = ranging
+        a = list(np.random.uniform(lower, upper, rank))
         a += [0]*(min(m, n) - rank)
         sigma = np.sort(a)[::-1]
     else:
