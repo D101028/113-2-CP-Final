@@ -1,6 +1,7 @@
+import time
+
 import numpy as np
 from numpy.linalg import svd
-import time
 
 def remove_small_values(matrix, threshold=1e-8):
     return np.where(np.abs(matrix) < threshold, 0, matrix)
