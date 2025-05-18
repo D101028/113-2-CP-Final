@@ -17,7 +17,9 @@ def error_avg(A, m, k, sigma, V1):
     t = time.time()
     sketched_sigma, sketched_V = sketched_svd(A, m)
     dt = time.time() - t
-    avg = np.average(np.abs((sketched_sigma[:k] - sigma[:k]) / sigma[:k]))
+    s = sigma[:k] ** 2
+    s1 = sketched_sigma[:k] ** 2
+    avg = np.average(np.abs((s1 - s) / s))
     # Calculate the difference between V and V1
     # Vectors in sketched_V may be different by a sign
     V_diff = np.average([
