@@ -7,7 +7,7 @@ from scipy.optimize import linear_sum_assignment
 def procrustes_align(V_ref, V_target):
     U, _, VT = svd(V_ref.T @ V_target)
     Q = U @ VT
-    return V_target @ Q  # 對齊後的 V_target（列為向量）
+    return V_target @ Q  
 
 # Variable setting
 N, n, k = 500, 20, 10
