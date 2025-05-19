@@ -28,7 +28,7 @@ N, n, k = 500, 20, 10
 m = 40          # Set m
 j = 1           # We only consider the first right singular vector
 epsilon = 0.1   # Error
-gaps = np.linspace(0.01, 3.0, 30) #Gap
+gaps = np.linspace(0.01, 3.0, 30) # Gap
 
 vector_errors = []
 theoretical_bounds = []
@@ -84,17 +84,3 @@ plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-

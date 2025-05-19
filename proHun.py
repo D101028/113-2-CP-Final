@@ -22,7 +22,7 @@ X = U @ S @ V.T
 # Select Phi satisfies JL
 Phi = np.random.randn(m, N) / np.sqrt(m)
 
-#Compute Y
+# Compute Y
 Y = Phi @ X
 
 # SVD

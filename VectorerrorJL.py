@@ -6,7 +6,7 @@ from numpy.linalg import svd, norm
 N, n = 500, 20     # Dimension of X
 k = 10             # rank
 epsilon = 0.1      # Error
-delta=0.01         # Failure probability
+delta = 0.01       # Failure probability
 m = int(np.ceil((6 / (epsilon ** 2)) * (k * np.log(42 / epsilon) + np.log(2 / delta))))     # Compute m
 
 

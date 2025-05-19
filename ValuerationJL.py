@@ -2,9 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Variable setting
-N, n = 500, 20    # Dimension of X 
-k = 10             # Rank
-epsilon = 0.1      # Error
+N, n = 500, 20      # Dimension of X 
+k = 10              # Rank
+epsilon = 0.1       # Error
 
 # Set m
 m=40
