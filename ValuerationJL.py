@@ -7,7 +7,7 @@ k = 10              # Rank
 epsilon = 0.1       # Error
 
 # Set m
-m=40
+m = 40
 
 # Construct X with rank(X)=k 
 U = np.linalg.qr(np.random.randn(N, k))[0]        # N x k, orthogonal
