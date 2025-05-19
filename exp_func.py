@@ -92,7 +92,7 @@ def test_compression_ratio(N = 1000, n = 400, k_arr = [5, 10, 50, 100], max_m = 
     # Keep the original k_arr order
     results.sort(key=lambda x: k_arr.index(x[0]))
 
-    # graphs: (i, j, title, xlabel, ylabel)
+    # graphs: (i, j, title, xlabel, ylabel), the graph of j-th variable by i-th variable
     plot_graphs(results, graphs = (
         (0, 1, 
          f"Error by Compressed Row Number (N = {N}, n = {n})", 
