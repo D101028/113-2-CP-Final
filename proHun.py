@@ -26,12 +26,15 @@ Phi = np.random.randn(m, N) / np.sqrt(m)
 Y = Phi @ X
 
 # SVD
-_, _, V_X = svd(X, full_matrices=False)
-_, _, V_Y = svd(Y, full_matrices=False)
+_, _, V_X_T = svd(X, full_matrices=False)
+_, _, V_Y_T = svd(Y, full_matrices=False)
+
+V_X = V_X_T.T
+V_Y = V_Y_T.T
 
 # Take the first k terms
-V_X_k = V_X[:k]         
-V_Y_k = V_Y[:k]
+V_X_k = V_X[:, :k]         
+V_Y_k = V_Y[:, :k]
 V_Y_k_aligned = procrustes_align(V_X_k.T, V_Y_k.T).T  # Align
 
 # Find the best match
