@@ -53,12 +53,15 @@ for gap in gaps:
     Y = Phi @ X
 
     # SVD
-    _, _, V_X = svd(X, full_matrices=False)
-    _, _, V_Y = svd(Y, full_matrices=False)
+    _, _, V_X_T = svd(X, full_matrices=False)
+    _, _, V_Y_T = svd(Y, full_matrices=False)
+
+    V_X = V_X_T.T
+    V_Y = V_Y_T.T
 
     # The error of the j-th vector 
-    v = V_X[j]
-    v_p = V_Y[j]
+    v = V_X[:, j]
+    v_p = V_Y[:, j]
 
     # Ensure the nonnegative inner product
     if np.dot(v, v_p) < 0:

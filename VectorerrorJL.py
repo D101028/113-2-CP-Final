@@ -23,16 +23,19 @@ Phi = np.random.randn(m, N) / np.sqrt(m)
 # Compute Y
 Y = Phi @ X  
 # SVD
-_, S_X, V_X = svd(X, full_matrices=False)  # V_X: n x n
-_, S_Y, V_Y = svd(Y, full_matrices=False)
+_, S_X, V_X_T = svd(X, full_matrices=False)  # V_X: n x n
+_, S_Y, V_Y_T = svd(Y, full_matrices=False)
+
+V_X = V_X_T.T
+V_Y = V_Y_T.T
 
 # Error(L2) and thereotical bound
 errors = []
 bounds = []
 
 for j in range(k):
-    v = V_X[j]
-    v_p = V_Y[j]
+    v = V_X[:, j]
+    v_p = V_Y[:, j]
     
     # Ensure the nonnegative inner product
     if np.dot(v, v_p) < 0:
