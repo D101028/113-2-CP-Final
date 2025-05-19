@@ -8,7 +8,8 @@ def remove_small_values(matrix, threshold=1e-8):
 
 def generate_JL_matrix(m, n):
     """
-    Generate a Johnson-Lindenstrauss (JL) matrix.
+    Generate a distributionsal Johnson-Lindenstrauss (JL) matrix.
+    (We consider the Gaussian Distribution Matrix)
     
     :param m: Number of rows in the JL matrix.
     :param n: Number of columns in the JL matrix.
