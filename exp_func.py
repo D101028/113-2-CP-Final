@@ -1,3 +1,4 @@
+import concurrent.futures # enhance the speed
 import time
 
 import numpy as np
@@ -70,8 +71,6 @@ def test_compression_ratio(N = 1000, n = 400, k_arr = [5, 10, 50, 100], max_m = 
     :param m_interval: Interval of each testing m
     :return: None
     """
-
-    import concurrent.futures # enhance the speed
 
     def process_k(k):
         A, sigma, U, V = generate_matrix_with_singular_values(N, n, k)
