@@ -10,4 +10,9 @@ a, b, c  = svd(A)
 
 print(a, b, c)
 
-print()
+B = np.array([
+    [b[0], 0], 
+    [0, b[1]]
+])
+
+print(a @ B @ c)
