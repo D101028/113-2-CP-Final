@@ -1,6 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from numpy.linalg import svd, norm
+from numpy.linalg import norm
 
 from func import generate_matrix_with_singular_values, sketched_svd, draw_diagram2
 
