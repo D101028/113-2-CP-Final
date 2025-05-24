@@ -1,18 +1,7 @@
-import numpy as np
-from numpy.linalg import svd 
+from func import generate_matrix_with_singular_values, svd
 
-A = np.array([
-    [1,2],
-    [8,7]
-])
+A, S, U, V = generate_matrix_with_singular_values(10, 5, sigma=[1, 2, 3, 0])
 
-a, b, c  = svd(A)
+# print(A, S, U, V)
+# print(svd(A))
 
-print(a, b, c)
-
-B = np.array([
-    [b[0], 0], 
-    [0, b[1]]
-])
-
-print(a @ B @ c)

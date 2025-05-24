@@ -33,6 +33,26 @@ def error_avg(A, m, k, sigma, V1):
     return dt, avg, V_diff
 
 def plot_graphs(results, graphs):
+    """
+    Plot the graphs by the given datas. 
+    Graphs will be plotted in different windows. 
+
+    :param results: datas, format: `( (k_value, data_x, data_y), (index, ...), ... )`
+    For example 
+        >>> ( 
+            (20, [1, 2, 3], [4, 5, 6]), 
+            (40, [5, 4, 3], [2, 1, 0]) 
+        )
+        
+    :param graphs: graphs msg, format: `( (index, code_x, code_y, title, xlabel, ylabel) )`
+    For example
+        >>> (
+            (0, 1, 0, "title", "xlabel", "ylabel"), 
+            (1, 0, 2, "title", "xlabel", "ylabel")
+        )
+
+        The example above means to plot graph with code 0 by 1 and 2 by 0. 
+    """
     for item in results:
         k = item[0]
         data = item[1:]
@@ -46,6 +66,26 @@ def plot_graphs(results, graphs):
             plt.legend()
 
 def plot_graphs_together(results, graphs):
+    """
+    Plot the graphs by the given datas. 
+    Graphs will be plotted in the same window. 
+
+    :param results: datas, format: `( (k_value, data_x, data_y), (index, ...), ... )`
+    For example 
+        >>> ( 
+            (20, [1, 2, 3], [4, 5, 6]), 
+            (40, [5, 4, 3], [2, 1, 0]) 
+        )
+        
+    :param graphs: graphs msg, format: `( (index, code_x, code_y, title, xlabel, ylabel) )`
+    For example
+        >>> (
+            (0, 1, 0, "title", "xlabel", "ylabel"), 
+            (1, 0, 2, "title", "xlabel", "ylabel")
+        )
+
+        The example above means to plot graph with code 0 by 1 and 2 by 0. 
+    """
     num = len(graphs)
     fig, axs = plt.subplots(1, num)
     for item in results:
@@ -75,7 +115,7 @@ def test_compression_ratio(N = 1000, n = 400, k_arr = [5, 10, 50, 100], max_m = 
     def process_k(k):
         A, sigma, U, V = generate_matrix_with_singular_values(N, n, k)
         X, Y, T, Vs = [], [], [], []
-        for m in range(k, max_m + 1, m_interval):
+        for m in range(k, min(max_m, N) + 1, m_interval):
             dt, avg, V_diff = error_avg(A, m, k, sigma, V)
             X.append(m)
             T.append(dt)
