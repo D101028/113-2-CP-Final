@@ -1,6 +1,7 @@
 import numpy as np
-from numpy.linalg import svd, norm
-import matplotlib.pyplot as plt
+from numpy.linalg import norm
+
+from func import generate_matrix_with_singular_values, sketched_svd, draw_diagram2
 
 # Compute the theoretical bound
 def compute_theoretical_bound(sigma_vals, j, epsilon):
@@ -23,64 +24,53 @@ def compute_theoretical_bound(sigma_vals, j, epsilon):
     bound = numerator * max_term
     return min(np.sqrt(2), bound)
 
-# Variable setting
-N, n, k = 500, 20, 10
-m = 40          # Set m
-j = 0           # We only consider the first right singular vector
-epsilon = 0.1   # Error
-gaps = np.linspace(0.01, 3.0, 30) # Gap
+def test_value_gape_j(N = 500, n = 20, k = 20, m = 10, j = 0, 
+                      epsilon = 0.1, gaps = np.linspace(0.01, 3.0, 30)):
+    """
+    N, n, k = 500, 20, 10
+    m = 40          # Set m
+    j = 0           # We only consider the first right singular vector
+    epsilon = 0.1   # Error
+    gaps = np.linspace(0.01, 3.0, 30) # Gap
+    """
 
-vector_errors = []
-theoretical_bounds = []
+    vector_errors = []
+    theoretical_bounds = []
 
-# Select error and the theoretical bound
-for gap in gaps:
-    # Generate singular values
-    s1 = 10
-    singular_vals = [s1 - i * gap for i in range(k)]
-    singular_vals = np.maximum(singular_vals, 0.1)  # Here we require singular to be nonnegative
-    S = np.diag(singular_vals)
+    # Select error and the theoretical bound
+    for gap in gaps:
+        # Generate singular values
+        s1 = 10
+        singular_vals = [s1 - i * gap for i in range(k)]
+        singular_vals = np.maximum(singular_vals, 0.1)  # Here we require singular to be nonnegative
 
-    # Construct X with rank(X)=k
-    U = np.linalg.qr(np.random.randn(N, k))[0]
-    V = np.linalg.qr(np.random.randn(n, k))[0]
-    X = U @ S @ V.T
+        # Generate the experiment data
+        X, _, _, V_X = generate_matrix_with_singular_values(N, n, sigma=singular_vals)
+        _, V_Y = sketched_svd(X, m)
 
-    # Select Phi satisfies JL
-    Phi = np.random.randn(m, N) / np.sqrt(m)
+        # The error of the j-th vector 
+        v = V_X[:, j]
+        v_p = V_Y[:, j]
 
-    # Compute Y
-    Y = Phi @ X
+        # Ensure the nonnegative inner product
+        if np.dot(v, v_p) < 0:
+            v_p = -v_p
+        err = norm(v - v_p)
+        vector_errors.append(err)
 
-    # SVD
-    _, _, V_X_T = svd(X, full_matrices=False)
-    _, _, V_Y_T = svd(Y, full_matrices=False)
+        # Thereotical bound
+        bound = compute_theoretical_bound(singular_vals, j, epsilon)
+        theoretical_bounds.append(bound)
 
-    V_X = V_X_T.T
-    V_Y = V_Y_T.T
+    draw_diagram2(
+        gaps, 
+        (vector_errors, 'bo-', 'Actual error ‖v_j - v′_j‖₂'), 
+        (theoretical_bounds, 'r--', 'Theoretical upper bound'), 
+        xlabel  = 'Singular value gap', 
+        ylabel  = 'Error', 
+        title   =  f'Singular vector error vs. gap (m = {m}, j = {j})', 
+        figsize = (10, 5)
+    )
 
-    # The error of the j-th vector 
-    v = V_X[:, j]
-    v_p = V_Y[:, j]
-
-    # Ensure the nonnegative inner product
-    if np.dot(v, v_p) < 0:
-        v_p = -v_p
-    err = norm(v - v_p)
-    vector_errors.append(err)
-
-    # Thereotical bound
-    bound = compute_theoretical_bound(singular_vals, j, epsilon)
-    theoretical_bounds.append(bound)
-
-# Draw the diagram
-plt.figure(figsize=(10, 5))
-plt.plot(gaps, vector_errors, 'bo-', label='Actual error ‖v_j - v′_j‖₂')
-plt.plot(gaps, theoretical_bounds, 'r--', label='Theoretical upper bound')
-plt.xlabel('Singular value gap')
-plt.ylabel('Error')
-plt.title(f'Singular vector error vs. gap (m = {m}, j = {j})')
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
+if __name__ == "__main__":
+    test_value_gape_j()
