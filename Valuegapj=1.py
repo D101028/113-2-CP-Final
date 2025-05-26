@@ -3,8 +3,8 @@ from numpy.linalg import norm
 
 from func import generate_matrix_with_singular_values, sketched_svd, draw_diagram2
 
-# Compute the theoretical bound
 def compute_theoretical_bound(sigma_vals, j, epsilon):
+    """Compute the theoretical bound"""
     sigma_j = sigma_vals[j]
     numerator = epsilon * np.sqrt(1 + epsilon) / np.sqrt(1 - epsilon)
     max_term = 0

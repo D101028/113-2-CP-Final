@@ -20,11 +20,11 @@ def test_value_ratio_JL(N = 500, n = 20, k = 10, epsilon = 0.1, delta = 0.01):
     sketch_singular_values, _ = sketched_svd(X, m)
 
     # Take the first k terms
-    σ_X = true_singular_values[:k]
-    σ_Y = sketch_singular_values[:k]
+    sigma_X = true_singular_values[:k]
+    sigma_Y = sketch_singular_values[:k]
 
     # Compute the ratio with the corresponding bound
-    ratios = σ_Y / σ_X
+    ratios = sigma_Y / sigma_X
     lower_bound = np.sqrt(1 - epsilon)
     upper_bound = np.sqrt(1 + epsilon)
 
