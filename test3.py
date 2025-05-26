@@ -1,7 +1,6 @@
 import numpy as np
 from numpy.linalg import svd
 
-from exp_func import test_compression_ratio, error_avg
 from func import sketched_svd, generate_matrix_with_singular_values, remove_small_values
 
 A, Sigma, U, V = generate_matrix_with_singular_values(5, 5, 3)
