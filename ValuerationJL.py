@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 
 from func import generate_matrix_with_singular_values, sketched_svd, draw_diagram3
