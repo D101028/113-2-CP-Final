@@ -44,7 +44,7 @@ def compute_errors_and_bounds(N, n, k, m, epsilon):
 
 def test_vector_error_JL(N = 500, n = 20, k = 10, epsilon = 0.1, delta = 0.01):
     ######################################################################
-    ### Danger! Running This Function May Be Very Resources Consuming! ###
+    ### Danger! Running This Function May Be Very Resource Intensive! ###
     ######################################################################
     """
     Compute results from given epsilon and delta. 
