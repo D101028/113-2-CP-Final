@@ -43,9 +43,9 @@ def compute_errors_and_bounds(N, n, k, m, epsilon):
     return errors, bounds
 
 def test_vector_error_JL(N = 500, n = 20, k = 10, epsilon = 0.1, delta = 0.01):
-    ######################################################################
+    #####################################################################
     ### Danger! Running This Function May Be Very Resource Intensive! ###
-    ######################################################################
+    #####################################################################
     """
     Compute results from given epsilon and delta. 
     m is computed from epsilon and delta. 
