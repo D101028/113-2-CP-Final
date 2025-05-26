@@ -3,6 +3,9 @@ from numpy.linalg import norm
 
 from func import generate_matrix_with_singular_values, sketched_svd, draw_diagram2
 
+def m_func(k, epsilon, delta):
+    return int(np.ceil((6 / (epsilon ** 2)) * (k * np.log(42 / epsilon) + np.log(2 / delta))))
+
 def test_vector_error_JL(N = 500, n = 20, k = 10, epsilon = 0.1, delta = 0.01):
     """
     >>> N, n = 500, 20     # Dimension of X
@@ -11,7 +14,7 @@ def test_vector_error_JL(N = 500, n = 20, k = 10, epsilon = 0.1, delta = 0.01):
     >>> delta = 0.01       # Failure probability
     """
     # Compute m
-    m = int(np.ceil((6 / (epsilon ** 2)) * (k * np.log(42 / epsilon) + np.log(2 / delta))))
+    m = m_func(k, epsilon, delta)
 
     # Generate the experiment data
     X, S_X, _, V_X = generate_matrix_with_singular_values(N, n, sigma=np.linspace(10, 1, k))
