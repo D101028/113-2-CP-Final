@@ -25,8 +25,12 @@ def sketched_svd(X, m, compute_uv = True):
 
     :param X: Input matrix of shape (N, n).
     :param m: Number of rows in the JL matrix.
-    :return: sigma_Y, V_Y: 
-    Singular values and right singular vectors of the compressed matrix.
+    :return: 
+        If `compute_uv` is `True`, return `sigma_Y, V_Y`: 
+        Singular values and right singular vectors of the compressed matrix. 
+
+        If `compute_uv` is `False`, return `sigma_Y`: 
+        Singular values of the compressed matrix.
     """
     N, n = X.shape
     Phi = generate_JL_matrix(m, N)  # Generate JL matrix
