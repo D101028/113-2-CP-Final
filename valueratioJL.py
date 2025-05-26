@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from func import generate_matrix_with_singular_values, sketched_svd
+from func import generate_matrix_with_singular_values, sketched_svd, draw_diagram3
 
 def test_value_ratio_JL(N = 500, n = 20, k = 10, epsilon = 0.1, delta = 0.01):
     """
@@ -27,17 +27,14 @@ def test_value_ratio_JL(N = 500, n = 20, k = 10, epsilon = 0.1, delta = 0.01):
     upper_bound = np.sqrt(1 + epsilon)
 
     # Draw the diagram
-    plt.figure(figsize=(8, 5))
-    plt.plot(range(1, k+1), ratios, marker='o', label='σ_Y / σ_X')
-    plt.axhline(y=lower_bound, color='r', linestyle='--', label='Theorem 1 lower bound')
-    plt.axhline(y=upper_bound, color='g', linestyle='--', label='Theorem 1 upper bound')
-    plt.title("Ratio of Sketched vs True Singular Values")
-    plt.xlabel("Singular Value Index (j)")
-    plt.ylabel("σ_j(Y) / σ_j(X)")
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
+    draw_diagram3(range(1, k+1), 
+        (ratios, 'σ_Y / σ_X'), 
+        (lower_bound, 'Theorem 1 lower bound'), 
+        (upper_bound, 'Theorem 1 upper bound'), 
+        xlabel  = "Singular Value Index (j)", 
+        ylable  = "σ_j(Y) / σ_j(X)", 
+        title   = "Ratio of Sketched vs True Singular Values"
+    )
 
 if __name__ == "__main__":
     ###################################################

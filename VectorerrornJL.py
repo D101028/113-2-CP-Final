@@ -48,9 +48,8 @@ def test_vector_error_n_JL(N = 500, n = 20, k = 10, m = 40, epsilon = 0.1):
         bounds.append(bound)
 
     # Draw the diagram
-    x = np.arange(k)
     draw_diagram2(
-        x, 
+        np.arange(k), 
         (errors, 'bo-', 'Error'), 
         (bounds, 'r--', 'upper bound'), 
         xlabel  = 'j-th right singular vector', 

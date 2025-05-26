@@ -109,16 +109,16 @@ def title_print(title):
     print(title)
     print("=" * 40 + "\n")
 
-def draw_diagram2(x, y1_info, y2_info, xlabel = None, ylabel = None, title = None, figsize = (9, 5)):
+def draw_diagram2(x, y1_info, y2_info, xlabel = "", ylabel = "", title = "", figsize = (9, 5)):
     """
-    Plot a graph with two sets of data: y1 by x, y2 by x.
+    Plot a graph with two sets of data: y1, y2.
     
     :param x: data set x
     :param y1_info: a tuple of (data set, style, label) of y1
     :param y2_info: a tuple of (data set, style, label) of y2
-    :param xlabel: graph xlabel
-    :param ylabel: graph ylabel
-    :param title: graph title
+    :param xlabel: graph xlabel, default: ""
+    :param ylabel: graph ylabel, default: ""
+    :param title: graph title, default: (9, 5)
     :return: None
     """
     y1_data, y1_style, y1_label = y1_info
@@ -131,6 +131,35 @@ def draw_diagram2(x, y1_info, y2_info, xlabel = None, ylabel = None, title = Non
     plt.ylabel(ylabel)
     plt.title(title)
     plt.xticks(x)
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+def draw_diagram3(x, y_info, l1_info, l2_info, xlabel = "", ylabel = "", title = "", figsize = (8, 5)):
+    """
+    Plot a graph with data: y, l1 (lower bound), l2 (upper bound).
+    
+    :param x: data set x
+    :param y_info: a tuple of (data set, label) of y
+    :param l1_info: a tuple of (data set, label) of l1
+    :param l2_info: a tuple of (data set, label) of l2
+    :param xlabel: graph xlabel, default: ""
+    :param ylabel: graph ylabel, default: ""
+    :param title: graph title, default: (9, 5)
+    :return: None
+    """
+    y_data, y_label = y_info
+    l1_data, l1_label = l1_info
+    l2_data, l2_label = l2_info
+
+    plt.figure(figsize=figsize)
+    plt.plot(x, y_data, marker='o', label=y_label)
+    plt.axhline(y=l1_data, color='r', linestyle='--', label=l1_label)
+    plt.axhline(y=l2_data, color='g', linestyle='--', label=l2_label)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     plt.legend()
     plt.grid(True)
     plt.tight_layout()

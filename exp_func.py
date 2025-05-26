@@ -64,6 +64,8 @@ def plot_graphs(results, graphs):
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
             plt.legend()
+    plt.tight_layout()
+    plt.show()
 
 def plot_graphs_together(results, graphs):
     """
@@ -99,6 +101,8 @@ def plot_graphs_together(results, graphs):
             ax.set_xlabel(xlabel)
             ax.set_ylabel(ylabel)
             ax.legend()
+    plt.tight_layout()
+    plt.show()
 
 def test_compression_ratio(N = 1000, n = 400, k_arr = [5, 10, 50, 100], max_m = 500, m_interval = 5):
     """
@@ -147,9 +151,6 @@ def test_compression_ratio(N = 1000, n = 400, k_arr = [5, 10, 50, 100], max_m = 
          "m", 
          "V difference (norm(V-V'))")
     ))
-    
-    plt.tight_layout()
-    plt.show()
 
 if __name__ == "__main__":
     test_compression_ratio()
