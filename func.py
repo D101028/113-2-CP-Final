@@ -109,6 +109,9 @@ def title_print(title):
     print(title)
     print("=" * 40 + "\n")
 
+def m_func(k, epsilon, delta):
+    return int(np.ceil((6 / (epsilon ** 2)) * (k * np.log(42 / epsilon) + np.log(2 / delta))))
+
 def draw_diagram2(x, y1_info, y2_info, xlabel = "", ylabel = "", title = "", figsize = (9, 5)):
     """
     Plot a graph with two sets of data: y1, y2.
