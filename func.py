@@ -114,6 +114,14 @@ def title_print(title):
     print("=" * 40 + "\n")
 
 def m_func(k, epsilon, delta):
+    """
+    The boundary estimation function for m. 
+
+    :param k: rank
+    :param epsilon: error
+    :param delta: failure probability
+    :return: m
+    """
     return int(np.ceil((6 / (epsilon ** 2)) * (k * np.log(42 / epsilon) + np.log(2 / delta))))
 
 def draw_diagram2(x, y1_info, y2_info, xlabel = "", ylabel = "", title = "", figsize = (9, 5)):
