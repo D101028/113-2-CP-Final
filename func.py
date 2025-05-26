@@ -19,7 +19,7 @@ def generate_JL_matrix(m, n):
     Phi = np.random.randn(m, n) / np.sqrt(m)
     return Phi
 
-def sketched_svd(X, m):
+def sketched_svd(X, m, compute_uv = True):
     """
     Perform a randomized SVD using a JL matrix.
 
@@ -31,8 +31,12 @@ def sketched_svd(X, m):
     N, n = X.shape
     Phi = generate_JL_matrix(m, N)  # Generate JL matrix
     Y = Phi @ X
-    U_Y, sigma_Y, V_Y_T = svd(Y, full_matrices=True)
-    return sigma_Y, V_Y_T.T  # Return Σ_Y and V_Y
+    if compute_uv:
+        U_Y, sigma_Y, V_Y_T = svd(Y, compute_uv=True)
+        return sigma_Y, V_Y_T.T  # Return Σ_Y and V_Y
+    else:
+        sigma_Y = svd(Y, compute_uv=False)
+        return sigma_Y
 
 def generate_matrix_with_singular_values(N, n, rank = None, ranging = None, sigma = None):
     """

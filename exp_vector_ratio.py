@@ -5,7 +5,7 @@ from func import generate_matrix_with_singular_values, sketched_svd, m_func, dra
 def compute_ratio_and_bounds(N, n, k, m, epsilon):
     # Generate the experiment data
     X, true_singular_values, _, _ = generate_matrix_with_singular_values(N, n, sigma=np.linspace(10, 1, k))
-    sketch_singular_values, _ = sketched_svd(X, m)
+    sketch_singular_values = sketched_svd(X, m, False)
 
     # Take the first k terms
     sigma_X = true_singular_values[:k]
@@ -41,7 +41,7 @@ def test_value_ratio_JL(N = 500, n = 20, k = 10, epsilon = 0.1, delta = 0.01):
         (lower_bound, 'Theorem 1 lower bound'), 
         (upper_bound, 'Theorem 1 upper bound'), 
         xlabel  = "Singular Value Index (j)", 
-        ylable  = "σ_j(Y) / σ_j(X)", 
+        ylabel  = "σ_j(Y) / σ_j(X)", 
         title   = "Ratio of Sketched vs True Singular Values"
     )
 
@@ -67,4 +67,4 @@ def test_value_ratio_n_JL(N = 500, n = 20, k = 10, epsilon = 0.1, m = 40):
     )
 
 if __name__ == "__main__":
-    test_value_ratio_n_JL()
+    test_value_ratio_JL()
