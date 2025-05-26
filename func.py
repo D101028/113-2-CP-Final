@@ -32,10 +32,10 @@ def sketched_svd(X, m, compute_uv = True):
     Phi = generate_JL_matrix(m, N)  # Generate JL matrix
     Y = Phi @ X
     if compute_uv:
-        U_Y, sigma_Y, V_Y_T = svd(Y, compute_uv=True)
+        U_Y, sigma_Y, V_Y_T = svd(Y, compute_uv=True, full_matrices=False)
         return sigma_Y, V_Y_T.T  # Return Σ_Y and V_Y
     else:
-        sigma_Y = svd(Y, compute_uv=False)
+        sigma_Y = svd(Y, compute_uv=False, full_matrices=False)
         return sigma_Y
 
 def generate_matrix_with_singular_values(N, n, rank = None, ranging = None, sigma = None):

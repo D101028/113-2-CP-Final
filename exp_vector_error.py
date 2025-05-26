@@ -93,4 +93,4 @@ def test_vector_error_n_JL(N = 500, n = 20, k = 10, epsilon = 0.1, m = 40):
     )
 
 if __name__ == "__main__":
-    test_vector_error_n_JL()
+    test_vector_error_JL()
