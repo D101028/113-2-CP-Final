@@ -69,7 +69,7 @@ def test_value_gap_j(N = 500, n = 20, k = 20, m = 10, j = 0,
         xlabel  = 'Singular value gap', 
         ylabel  = 'Error', 
         title   =  f'Singular vector error vs. gap (m = {m}, j = {j})', 
-        figsize = (10, 5)
+        figsize = (14, 5)
     )
 
 if __name__ == "__main__":
