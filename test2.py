@@ -1,7 +1,4 @@
-from func import generate_matrix_with_singular_values, svd
-
-A, S, U, V = generate_matrix_with_singular_values(10, 5, sigma=[1, 2, 3, 0])
-
-# print(A, S, U, V)
-# print(svd(A))
-
+import numpy as np
+k = 2
+x = np.linspace(5, 1, 10)
+[print(i) for i in x]

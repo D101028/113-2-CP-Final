@@ -68,13 +68,9 @@ def generate_matrix_with_singular_values(N, n, rank = None, ranging = None, sigm
     else:
         sigma = np.sort(sigma)[::-1]
         # Count the rank and cast 0's in sigma
-        rank = len(sigma)
-        for i in reversed(sigma):
-            if i == 0:
-                rank -= 1
-                continue
-            if i != 0:
-                break
+        zero_count = np.count_nonzero(sigma == 0)
+        rank = len(sigma) - zero_count
+        # print(rank, zero_count)
         sigma = sigma[:rank]
 
     # Construct the diagonal matrix Sigma
@@ -86,7 +82,7 @@ def generate_matrix_with_singular_values(N, n, rank = None, ranging = None, sigm
 
     # Compute A = U Σ V^T
     A = U @ Sigma @ V.T
-
+    
     return A, sigma, U, V
 
 def timer(func, *args, **kwargs):

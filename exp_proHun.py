@@ -12,7 +12,8 @@ def procrustes_align(V_ref, V_target):
 
 def test_proHun(N = 500, n = 20, k = 10, m = 40):
     # Generate the experiment data
-    X, _, _, V_X = generate_matrix_with_singular_values(N, n, sigma=np.linspace((5, 1), k))
+    sigma = np.linspace(5, 1, k) # Singular values with small gap
+    X, _, _, V_X = generate_matrix_with_singular_values(N, n, sigma=sigma)
     _, V_Y = sketched_svd(X, m)
     
     # Take the first k terms
