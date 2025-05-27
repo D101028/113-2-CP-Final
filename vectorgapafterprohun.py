@@ -1,7 +1,15 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from numpy.linalg import svd, norm
 from scipy.optimize import linear_sum_assignment
+
+from func import generate_matrix_with_singular_values, sketched_svd
+
+def procrustes_align(V_ref, V_target):
+    """Procrustes"""
+    U, _, VT = svd(V_ref.T @ V_target)
+    Q = U @ VT
+    return V_target @ Q  
 
 # 參數設定
 N, n, k = 500, 20, 10
@@ -19,25 +27,19 @@ for gap in gap_list:
     s_vals = np.linspace(10, 10 - gap*(k-1), k)
     s_vals = np.maximum(s_vals, 0.1)
     S = np.diag(s_vals)
-
-    U = np.linalg.qr(np.random.randn(N, k))[0]
-    V = np.linalg.qr(np.random.randn(n, k))[0]
-    X = U @ S @ V.T
+    X, S, _, V_X = generate_matrix_with_singular_values(N, n, k, sigma=s_vals)
 
     # 壓縮
     Phi = np.random.randn(m, N) / np.sqrt(m)
     Y = Phi @ X
+    _, V_Y = sketched_svd(X, m)
 
     # SVD
-    _, S_X, V_X = svd(X, full_matrices=False)
-    _, _, V_Y = svd(Y, full_matrices=False)
-    V_X_k = V_X[:k]
-    V_Y_k = V_Y[:k]
+    V_X_k = V_X[:, :k]
+    V_Y_k = V_Y[:, :k]
 
     # Procrustes 對齊
-    U_p, _, VT_p = svd(V_X_k @ V_Y_k.T)
-    Q = U_p @ VT_p
-    V_Y_k_aligned = (V_Y_k.T @ Q).T
+    V_Y_k_aligned = procrustes_align(V_X_k.T, V_Y_k.T).T  # Align
 
     # 匈牙利匹配
     similarity = np.abs(V_X_k @ V_Y_k_aligned.T)
@@ -53,13 +55,13 @@ for gap in gap_list:
         errors_by_j[j].append(norm(v - v_p))
 
         # 理論上界
-        sigma_j = S_X[j]
+        sigma_j = S[j]
         numerator = epsilon * np.sqrt(1 + epsilon) / np.sqrt(1 - epsilon)
         max_term = 0
         for l in range(k):
             if l == j:
                 continue
-            sigma_i = S_X[l]
+            sigma_i = S[l]
             denom_candidates = [abs(sigma_i**2 - sigma_j**2 * (1 + c*epsilon)) for c in [-1, 0, 1]]
             denom = min(denom_candidates)
             if denom != 0:
