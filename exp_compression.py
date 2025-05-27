@@ -1,3 +1,9 @@
+"""
+測試不同的 m (壓縮後的 rank 大小) 
+對於 sketched svd 的 Singular values 
+與 Right sigular vectors 的影響。
+"""
+
 import concurrent.futures # enhance the speed
 import time
 
