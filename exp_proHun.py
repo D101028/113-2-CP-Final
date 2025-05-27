@@ -2,13 +2,7 @@ import numpy as np
 from numpy.linalg import svd, norm
 from scipy.optimize import linear_sum_assignment
 
-from func import generate_matrix_with_singular_values, sketched_svd, draw_diagram2
-
-def procrustes_align(V_ref, V_target):
-    """Procrustes"""
-    U, _, VT = svd(V_ref.T @ V_target)
-    Q = U @ VT
-    return V_target @ Q  
+from func import generate_matrix_with_singular_values, sketched_svd, procrustes_align, draw_diagram2
 
 def test_proHun(N = 500, n = 20, k = 10, m = 40):
     # Generate the experiment data

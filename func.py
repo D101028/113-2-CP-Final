@@ -89,6 +89,12 @@ def generate_matrix_with_singular_values(N, n, rank = None, ranging = None, sigm
     
     return A, sigma, U, V
 
+def procrustes_align(V_ref, V_target):
+    """Procrustes"""
+    U, _, VT = svd(V_ref.T @ V_target)
+    Q = U @ VT
+    return V_target @ Q  
+
 def timer(func, *args, **kwargs):
     """
     Timer decorator to measure the execution time of a function.
