@@ -1,3 +1,8 @@
+"""
+測試不同 gap (singular value 之間的間隔)
+對於第 j 項 right singular vector 的影響。
+"""
+
 import numpy as np
 from numpy.linalg import norm
 

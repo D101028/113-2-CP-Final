@@ -1,3 +1,7 @@
+"""
+測試 Procrustes 對齊前後的 right sigular vectors 誤差。
+"""
+
 import numpy as np
 from numpy.linalg import norm
 from scipy.optimize import linear_sum_assignment

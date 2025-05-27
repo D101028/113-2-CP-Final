@@ -1,3 +1,9 @@
+"""
+分別測試：
+1. 給定 ε (理論誤差), δ (失敗機會)，計算所需的 m (壓縮後維度)，並繪製 sigular values 誤差與理論上下界。
+2. 給定 ε (理論誤差), m (壓縮後維度)，繪製 sigular values 誤差與理論上下界。
+"""
+
 import numpy as np
 
 from func import generate_matrix_with_singular_values, sketched_svd, m_func, draw_diagram3

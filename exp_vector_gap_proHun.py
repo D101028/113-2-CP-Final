@@ -1,3 +1,8 @@
+"""
+測試在不同 singular value gap 下，經過 Procrustes 對齊與匈牙利匹配後，
+奇異向量的誤差與理論上界的關係。
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.linalg import norm
