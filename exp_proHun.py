@@ -1,5 +1,5 @@
 import numpy as np
-from numpy.linalg import svd, norm
+from numpy.linalg import norm
 from scipy.optimize import linear_sum_assignment
 
 from func import generate_matrix_with_singular_values, sketched_svd, procrustes_align, draw_diagram2
