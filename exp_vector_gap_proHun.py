@@ -26,9 +26,7 @@ def test_vector_gap_after_proHun(N = 500, n = 20, k = 10, m = 40, epsilon = 0.1,
         S = np.diag(s_vals)
         X, S, _, V_X = generate_matrix_with_singular_values(N, n, k, sigma=s_vals)
 
-        # 壓縮
-        Phi = np.random.randn(m, N) / np.sqrt(m)
-        Y = Phi @ X
+        # Sketeched SVD
         _, V_Y = sketched_svd(X, m)
 
         # SVD
