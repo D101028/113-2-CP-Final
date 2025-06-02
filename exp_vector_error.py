@@ -66,7 +66,7 @@ def test_vector_error_JL(N = 500, n = 20, k = 10, epsilon = 0.1, delta = 0.01):
     draw_diagram2(
         np.arange(k), 
         (errors, 'bo-', 'Error'), 
-        (bounds, 'r--', 'upper bound'), 
+        (bounds, 'r--', 'Theorem 1 upper bound'), 
         xlabel  = 'j-th right singular vector', 
         ylabel  = 'error(L2 norm)', 
         title   = 'The estimate for right singular vector', 
@@ -88,7 +88,7 @@ def test_vector_error_n_JL(N = 500, n = 20, k = 10, epsilon = 0.1, m = 40):
     draw_diagram2(
         np.arange(k), 
         (errors, 'bo-', 'Error'), 
-        (bounds, 'r--', 'upper bound'), 
+        (bounds, 'r--', 'Theorem 1 upper bound'), 
         xlabel  = 'j-th right singular vector', 
         ylabel  = 'error(L2 norm)', 
         title   = 'The estimate for right singular vector', 
