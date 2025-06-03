@@ -50,8 +50,8 @@ def test_proHun(N = 500, n = 20, k = 10, m = 40):
         x, 
         (errors_before, 'ro-', 'Before Procrustes'), 
         (errors_after, 'go--', 'After Procrustes (best matched)'), 
-        xlabel  = 'Singular vector index (true)', 
-        ylabel  = '‖v_j - v′_j‖₂', 
+        xlabel  = 'Singular vector index (original)', 
+        ylabel  = 'error(L2 norm)', 
         title   = f'Singular vector errors before/after Procrustes (matched) (m = {m})', 
     )
 
