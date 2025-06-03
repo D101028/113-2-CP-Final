@@ -68,7 +68,7 @@ def test_vector_error_JL(N = 500, n = 20, k = 10, epsilon = 0.1, delta = 0.01):
         (errors, 'bo-', 'Error'), 
         (bounds, 'r--', 'Theorem 1 upper bound'), 
         xlabel  = 'j-th right singular vector', 
-        ylabel  = 'error(L2 norm)', 
+        ylabel  = 'error(Euclidean norm)', 
         title   = 'The estimate for right singular vector', 
         figsize = (8, 5)
     )
