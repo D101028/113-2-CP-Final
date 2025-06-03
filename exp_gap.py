@@ -29,7 +29,7 @@ def compute_theoretical_bound(sigma_vals, j, epsilon):
     bound = numerator * max_term
     return min(np.sqrt(2), bound)
 
-def test_value_gap_j(N = 500, n = 20, k = 20, m = 10, j = 0, 
+def test_value_gap_j(N = 500, n = 20, k = 10, m = 40, j = 0, 
                       epsilon = 0.1, gaps = np.linspace(0.01, 3.0, 30)):
     """
     N, n, k = 500, 20, 10
