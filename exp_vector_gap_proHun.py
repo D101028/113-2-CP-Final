@@ -76,7 +76,7 @@ def test_vector_gap_after_proHun(N = 500, n = 20, k = 10, m = 40, epsilon = 0.1,
         plt.plot(gap_list, bounds_by_j[j], '--', label=f'Bound for v{j}')
         
     plt.xlabel('Singular value gap')
-    plt.ylabel('L2 error')
+    plt.ylabel('error(Euclidean norm)')
     plt.title('Singular vector error vs. gap (Procrustes + matching)')
     plt.legend()
     plt.grid(True)
