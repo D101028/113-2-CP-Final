@@ -72,7 +72,7 @@ def test_value_gap_j(N = 500, n = 20, k = 20, m = 10, j = 0,
         (vector_errors, 'bo-', 'Actual error ‖v_j - v′_j‖₂'), 
         (theoretical_bounds, 'r--', 'Theoretical upper bound'), 
         xlabel  = 'Singular value gap', 
-        ylabel  = 'Error', 
+        ylabel  = 'Error(L2 norm)', 
         title   =  f'Singular vector error vs. gap (m = {m}, j = {j})', 
         figsize = (14, 5)
     )
